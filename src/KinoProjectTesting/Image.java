@@ -4,6 +4,9 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 public class Image {
 
@@ -25,8 +28,15 @@ public class Image {
         }
     }
 
+    public Response getFile() {
+        File file = new File("C:\\Users\\melwi\\IdeaProjects\\DHBW\\src\\KinoProjectTesting\\Images\\saved.png");
+        Response.ResponseBuilder response = Response.ok(file, MediaType.APPLICATION_JSON_TYPE);
+        response.header("Content-Disposition", "attachment; filename=\\"+file.getName());
+        return response.build();
+    }
+
     public static void main(String[] args) {
         Image image = new Image();
-        image.addImage();
+        image.getFile();
     }
 }
